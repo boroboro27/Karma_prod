@@ -1,0 +1,49 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+{{ super() }} 
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+<form action="{{url_for('contact')}}" method="post" class="form-contact">    
+    <p><label>Введите ваше сообщение: </label></p>
+    <p><textarea name="message" id="1" cols="41" rows="7" required></textarea></p>
+    <p><input type="submit" value="Отправить" /></p>
+</form>
+<br>
+<p><label>.:<b>: ОБРАЩЕНИЯ В ТЕХПОДДЕРЖКУ :</b>:.</label></p>
+<table>
+  <thead>
+    <tr>
+      <th>ID обращения</th>
+      <th>Пользователь</th>
+      <th>Текст обращения</th>
+      <th>Дата поступления</th>
+      <th>Дата закрытия</th>      
+      <th>Статус</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for fb in feedbacks %}
+    <tr>      
+      <td>{{ fb.id }}</td>
+      <td>{{ fb.email }}</td>
+      <td>{{ fb.msg_text }}</td>
+      <td>{{ fb.dt_new }}</td>
+      <td>{{ fb.dt_close }}</td>      
+      <td>
+        {% if check_admin[0].result == 1 and fb.status == 1 %}
+        <form method="get" action="{{ url_for('close_feedback', fb_id=fb.id) }}" name='fb_id'>
+          <input type="submit" value="закрыть">
+        </form>
+        {% elif check_admin[0].result == 0 and fb.status == 1 %}
+        ожидайте решения
+        {% else %}
+        закрыто      
+        {% endif %}
+      </td>       
+    </tr>    
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+ 
+{% block content %} 
+{{ super() }} 
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+<p><label>.:<b>: Схема движения статусов формуляра книги :</b>:.</label></p>
+<img src="static\img\Транзит статусов_v2.png" alt="Транзит статусов" class="img_rules_status"/>
+
+<br><br>
+<p><label>.:<b>: Описание схемы движения статусов формуляра книги :</b>:.</label></p>
+<table class="rules">
+<thead>
+  <tr>
+    <th>№пп.</th>
+    <th>Тип операции-действия(статуса)</th>    
+    <th>Роль</th>  
+    <th>Финальный статус</th>  
+    <th>Транзитный статус</th>  
+    <th>Логика установки статусов формуляра</th>  
+    <th>Читатель может подписаться на выданную книгу</th>  
+    <th>Кому отправляются уведомления на эл. почту</th>  
+  </tr>
+</thead>
+  <tbody>
+    {% for rule in rules %}
+    <tr>      
+      <td>{{ rule.id }}</td>
+      <td>{{ rule.oper_type }}</td>   
+      <td>{{ rule.role }}</td> 
+      <td>{{ rule.fin_status }}</td> 
+      <td>{{ rule.trans_status }}</td> 
+      <td>{{ rule.rule_description }}</td> 
+      <td>{{ rule.subscript }}</td> 
+      <td>{{ rule.mailing }}</td>    
+    </tr>    
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

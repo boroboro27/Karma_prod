@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <link type='image/png' sizes="32x32" rel="icon" href="{{ url_for('static', filename='img/icons8-книжная-полка-3d-fluency-32.png')}}" />    
+    <link type="text/css" href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+    
+    {% block title -%}
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>Книжный перекресток</title>
+    {% endif %}
+    {% endblock -%}
+</head>
+
+<body>
+    {% block content -%}
+    {% block mainmenu -%}
+    <nav class="nav">
+        <ul class="mainmenu">
+            {% for m in menu -%}
+            <li><a href="{{ url_for(m.url) }}">{{m.title}}</a></li>
+            {% endfor -%}
+        </ul>
+    </nav>  
+    {% endblock mainmenu -%}
+    <div class="clear"></div>
+    <div class="content">
+        {% if title and user -%}
+        <h1>{{ user }} - {{ title }} - (v.1.0.0_test)</h1>
+        {% else -%}
+        <h1>Книжный перекресток</h1>
+        {% endif -%}
+        {% endblock -%}
+    </div>
+    <br>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+<form action="{{url_for('verify_code')}}" method="post" class="form-login">
+    <p><label>Введите полученный код подтверждения:</label>
+    <p><input type="text" name="code" , value="" required /> </p>
+    <p><input type="submit" value="Подтвердить" /></p>
+</form>
+{% endblock %}

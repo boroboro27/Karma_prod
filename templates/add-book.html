@@ -1,0 +1,21 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+{{ super() }} 
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+<form action="{{url_for('add_book')}}" method="post" class="form-add-book">    
+    <p><label>Название книги: </label></p>
+    <p><textarea name="title-book" id="1" cols="41" rows="7" placeholder="Внесите полное наименование книги, указанное на обложке без кавычек. Максимум 200 символов." required ></textarea></p>
+    <p><label>Автор(ы) книги:</label> <input type="text" name="author-book", value="" placeholder="Максимум 100 символов" required /> </p>
+    <p><select name="genre_id" required>
+        <option value="" disabled selected>Выберите жанр из списка</option>
+        {% for g in genres %}
+          <option value="{{ g.id }}">{{ g.genre }}</option>
+        {% endfor %}
+    </select></p>   
+    <p><label>Год издания:</label> <input type="text" name="year-book" value="" placeholder="с 1900 по 2050" required /> </p>
+    <p><label>Количество страниц:</label> <input type="text" name="pages" value="" placeholder="укажите число" required /> </p>
+    <p><input type="submit" value="Добавить в каталог" /></p></form>
+{% endblock %}

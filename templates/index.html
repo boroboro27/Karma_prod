@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+
+<p>
+  <label>.:<b>: ВСЕ КНИГИ КОЛЛЕГ :</b>:.</label>
+</p>
+
+<div class="tabs">
+  <input type="radio" name="inset" value="" id="tab_1" checked>
+  <label for="tab_1">ДОСТУПНЫЕ МНЕ КНИГИ</label>
+
+  <input type="radio" name="inset" value="" id="tab_2">
+  <label for="tab_2">СКОРО СМОГУ ПОЧИТАТЬ</label>  
+
+  <div id="tbl_1">
+    <table>
+      <thead>
+        <tr>
+          <th>Код книги</th>
+          <th>Название</th>
+          <th>Автор</th>
+          <th>Жанр</th>
+          <th>Год издания</th>
+          <th>Количество страниц</th>
+          <th>Владелец</th>
+          <th>Регистрация книги</th>
+          <th>Последний возврат</th>
+          <th>Действие</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in avl_books %}
+        <tr>
+          <td>{{ book.book_code }}</td>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.genre }}</td>
+          <td>{{ book.year }}</td>
+          <td>{{ book.pages }}</td>
+          <td>{{ book.owner }}</td>
+          <td>{{ book.dt_reg }}</td>
+          <td>{{ book.dt_available }}</td>
+          <td>
+            <form method="get" action="{{ url_for('req_take_book', book_code=book.book_code, owner=book.owner) }}" name="req_take_book" class="request_take">
+              <input type="submit" value="запрос на выдачу">
+            </form>  
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>    
+  </div>
+  <div id="tbl_2">
+    <table>
+      <thead>
+        <tr>
+          <th>Код книги</th>
+          <th>Название</th>
+          <th>Автор</th>
+          <th>Жанр</th>
+          <th>Год издания</th>
+          <th>Количество страниц</th>
+          <th>Владелец</th>
+          <th>Читатель</th>
+          <th>Дата выдачи</th>
+          <th>Срок возврата</th>   
+          <th>Статус</th>        
+          <th>Действие</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in taken_books %}
+        <tr>
+          <td>{{ book.book_code }}</td>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.genre }}</td>
+          <td>{{ book.year }}</td>
+          <td>{{ book.pages }}</td>
+          <td>{{ book.owner }}</td>
+          <td>{{ book.reader }}</td>
+          <td>{{ book.dt_take }}</td>
+          <td>{{ book.dt_return }}</td>      
+          <td>{{ book.oper_type }}</td>
+          <td>            
+            {% if book.subs_status == 1 %}
+            <form method="post" action="{{ url_for('lk') }}" name="already_signed" class="subscription" >
+              <input type="submit" value="уже подписан">
+            </form>
+            {% elif book.subs_status == 0 %}
+            <form method="get" action="{{ url_for('subscribe_book', book_code=book.book_code) }}" name="subscribe" class="subscription">
+              <input type="submit" value="подписаться">
+            </form>        
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>  
+</div>
+{% endblock %}
