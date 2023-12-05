@@ -177,8 +177,8 @@ select {
 
 .request_take input {
     border: 1px solid #000000;
-    background: #fdc073;
-    color: #000000;
+    background: #FB85BA;
+    color: #1f2229;
     border-radius: 2px;
     margin-bottom: 0px;
     font-size: 14px;
@@ -186,8 +186,8 @@ select {
 
 .subscription input {
     border: 1px solid #000000;
-    background: #fdc073;
-    color: #000000;
+    background: #FB85BA;
+    color: #1f2229;
     border-radius: 2px;
     margin-bottom: 0px;
     font-size: 14px;
@@ -195,8 +195,8 @@ select {
 
 .lk_buttons input {
     border: 1px solid #000000;
-    background: #fdc073;
-    color: #000000;
+    background: #FB85BA;
+    color: #1f2229;
     border-radius: 2px;
     margin-bottom: 0px;
     font-size: 14px;
