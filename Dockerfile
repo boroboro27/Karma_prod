@@ -5,22 +5,22 @@ LABEL author="ruslan.borodin"
 LABEL version="1.0.0"
 LABEL type="prod."
 
-# копировать все файлы в контейнер
+# РєРѕРїРёСЂРѕРІР°С‚СЊ РІСЃРµ С„Р°Р№Р»С‹ РІ РєРѕРЅС‚РµР№РЅРµСЂ
 COPY . .
 
-# установка зависимостей
+# СѓСЃС‚Р°РЅРѕРІРєР° Р·Р°РІРёСЃРёРјРѕСЃС‚РµР№
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Установка пакетов tzdata для редактирования часового пояса
+# РЈСЃС‚Р°РЅРѕРІРєР° РїР°РєРµС‚РѕРІ tzdata РґР»СЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ С‡Р°СЃРѕРІРѕРіРѕ РїРѕСЏСЃР°
 RUN apt-get update && apt-get -y install tzdata && rm -rf /var/lib/apt/lists/* 
 RUN apt-get update && apt-get -y install sqlite3 && apt-get -y install nano
 
-# Установка часового пояса Москвы
+# РЈСЃС‚Р°РЅРѕРІРєР° С‡Р°СЃРѕРІРѕРіРѕ РїРѕСЏСЃР° РњРѕСЃРєРІС‹
 RUN ln -fs /usr/share/zoneinfo/Europe/Moscow /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
 
-# какой порт должен экспоузить контейнер
+# РєР°РєРѕР№ РїРѕСЂС‚ РґРѕР»Р¶РµРЅ СЌРєСЃРїРѕСѓР·РёС‚СЊ РєРѕРЅС‚РµР№РЅРµСЂ
 EXPOSE 5000
 EXPOSE 8181
 
-# запуск команды
+# Р·Р°РїСѓСЃРє РєРѕРјР°РЅРґС‹
 CMD [ "uwsgi", "--ini", "uwsgi.ini"]
