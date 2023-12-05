@@ -33,12 +33,12 @@ nav {
 
 ul.mainmenu {
     list-style: none;
-    background: #3f4137;
+    background: #1f2229;
     height: 60px;
     margin: 0;
     padding: 0;
     width: 100%;
-    color: #fdc073;
+    color: #EB66A1;
     font-size: 20px;
     overflow: hidden;
     display: flex;
@@ -58,7 +58,7 @@ ul.mainmenu li:last-child {
 }
 
 ul.mainmenu li a {
-    color: #fdc073;
+    color: #EB66A1;
     text-decoration: none;
     font-weight: bold;
     text-transform: uppercase;
