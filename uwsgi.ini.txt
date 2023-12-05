@@ -1,0 +1,14 @@
+[uwsgi]
+protocol = http
+http-socket = :5000
+module = app
+threads = 1
+harakiri = 60
+master = true
+processes = 5
+socket = uwsgi.sock
+chmod-socket = 660
+vacuum = true
+die-on-term = true
+logto = uwsgi/uwsgi.log
+stats = 127.0.0.1:8181
